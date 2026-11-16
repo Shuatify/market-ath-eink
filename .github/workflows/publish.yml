@@ -7,11 +7,11 @@ on:
   schedule:
     # NYSE weekdays; timezone automatically handles EST/EDT transitions.
     # Scheduled runs can be delayed/skipped by GitHub.
-    - cron: '30,40,50 9 * * 1-5'
+    - cron: '36,46,56 9 * * 1-5'
       timezone: America/New_York
-    - cron: '*/10 10-15 * * 1-5'
+    - cron: '6,16,26,36,46,56 10-15 * * 1-5'
       timezone: America/New_York
-    - cron: '0,10,20,30 16 * * 1-5'
+    - cron: '6,16,26 16 * * 1-5'
       timezone: America/New_York
 
 permissions:
