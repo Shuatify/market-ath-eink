@@ -1,6 +1,6 @@
 {
   "demo": true,
-  "generated_at_et": "2026-11-15T23:38:31.830560-05:00",
+  "generated_at_et": "2026-11-16T00:42:54.183141-05:00",
   "cards": [
     {
       "ticker": "VOO",
@@ -25,17 +25,6 @@
       "breakout": false
     },
     {
-      "ticker": "QLD",
-      "price": 108.0,
-      "price_time": "2026-11-13T14:15:00-05:00",
-      "quote_type": "5M BAR",
-      "prior_closing_ath": 120,
-      "prior_ath_date": "2026-10-23",
-      "change_pct": -9.999999999999998,
-      "days_since_prior_ath": 21,
-      "breakout": false
-    },
-    {
       "ticker": "SMH",
       "price": 367.5,
       "price_time": "2026-11-13T14:15:00-05:00",
@@ -45,6 +34,17 @@
       "change_pct": 5.000000000000004,
       "days_since_prior_ath": 83,
       "breakout": true
+    },
+    {
+      "ticker": "QLD",
+      "price": 108.0,
+      "price_time": "2026-11-13T14:15:00-05:00",
+      "quote_type": "5M BAR",
+      "prior_closing_ath": 120,
+      "prior_ath_date": "2026-10-23",
+      "change_pct": -9.999999999999998,
+      "days_since_prior_ath": 21,
+      "breakout": false
     }
   ]
 }

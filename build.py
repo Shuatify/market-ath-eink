@@ -23,8 +23,8 @@ ET = ZoneInfo('America/New_York')
 SYMBOLS = (
     ('VOO', 'S&P 500 ETF'),
     ('QQQ', 'NASDAQ-100 ETF'),
-    ('QLD', '2x NASDAQ-100'),
     ('SMH', 'SEMICONDUCTORS'),
+    ('QLD', '2x NASDAQ-100'),
 )
 OUT = Path(__file__).resolve().parent / 'site'
 
@@ -163,8 +163,8 @@ def demo_cards() -> list[Card]:
     return [
         compute_card('VOO', 'S&P 500 ETF', [(d-timedelta(days=49), 610)], 585.6, t, '5M BAR'),
         compute_card('QQQ', 'NASDAQ-100 ETF', [(d-timedelta(days=35), 600)], 492.0, t, '5M BAR'),
-        compute_card('QLD', '2x NASDAQ-100', [(d-timedelta(days=21), 120)], 108.0, t, '5M BAR'),
         compute_card('SMH', 'SEMICONDUCTORS', [(d-timedelta(days=83), 350)], 367.5, t, '5M BAR'),
+        compute_card('QLD', '2x NASDAQ-100', [(d-timedelta(days=21), 120)], 108.0, t, '5M BAR'),
     ]
 
 
@@ -176,13 +176,12 @@ def render(cards: list[Card], demo: bool = False) -> str:
         pct = f'{c.change:+.1f}%' if c.change > 0 else f'{c.change:.1f}%'
         if c.is_breakout:
             status = f'ABOVE PRIOR<br>CLOSING HIGH'
-            since = f'BREAKOUT · {c.days}d SINCE PRIOR ATH'
+            since = f'{c.days}d SINCE PRIOR ATH'
         else:
             status = 'AT CLOSING HIGH' if c.days == 0 and c.change == 0 else 'BELOW CLOSING HIGH'
             since = f'{c.days}d SINCE ATH'
         pieces.append(f'''<article class="card">
-          <div class="card-header"><div><div class="ticker">{html.escape(c.ticker)}</div>
-          <div class="asset">{html.escape(c.label)}</div></div>
+          <div class="card-header"><div class="ticker">{html.escape(c.ticker)}</div>
           <div class="price"><span class="dollar">$</span>{c.price:,.2f}</div></div>
           <div class="change-row"><strong class="delta">{pct}</strong><div class="status">{status}</div></div>
           <div class="card-footer"><span>ATH <strong>${c.reference_ath:,.2f}</strong> · {c.ath_date.isoformat()}</span>
@@ -193,36 +192,32 @@ def render(cards: list[Card], demo: bool = False) -> str:
     label = 'EARLIEST SOURCE' if many_times else 'AS OF'
     stamp = first_timestamp.strftime('%Y-%m-%d %H:%M ET')
     demo_label = '<div class="demo">DEMO · SAMPLE DATA</div>' if demo else ''
-    all_intraday = all(c.kind == '5M BAR' for c in cards)
-    source = 'YAHOO · 5M BARS · DELAYED / BEST EFFORT' if all_intraday else 'YAHOO · DAILY / INTRADAY · BEST EFFORT'
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=800,initial-scale=1,minimum-scale=1,maximum-scale=1"><meta http-equiv="Cache-Control" content="no-cache"><title>Market / All-Time Highs</title>
 <style>
   * {{ box-sizing:border-box; }}
   html,body {{ padding:0;margin:0;width:800px;height:480px;background:#fff;color:#111;overflow:hidden; }}
   body {{ font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased; }}
-  main {{ width:800px;height:480px;padding:20px 22px 12px;display:grid;grid-template-rows:53px 1fr 27px;gap:12px;position:relative; }}
+  main {{ width:800px;height:480px;padding:18px 20px 14px;display:grid;grid-template-rows:53px 1fr;gap:11px;position:relative; }}
   header {{ display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #111;padding-bottom:8px; }}
   h1 {{ font-size:27px;line-height:1;margin:0;font-weight:800;letter-spacing:.35px; }}
   .head-meta {{ text-align:right;font-size:12px;font-weight:700;letter-spacing:.6px;line-height:1.4; }}
-  .grid {{ display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:12px;min-height:0; }}
+  .grid {{ display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,minmax(0,1fr));gap:12px;min-height:0; }}
   .card {{ border:2px solid #111;padding:11px 12px 10px;display:flex;flex-direction:column;justify-content:space-between;min-height:0; }}
   .card-header,.change-row,.card-footer {{ display:flex;align-items:center;justify-content:space-between;gap:6px; }}
+  .card-header {{ border-bottom:1px solid #111;padding-bottom:10px; }}
   .ticker {{ font-size:27px;letter-spacing:.7px;font-weight:800;line-height:1; }}
-  .asset {{ font-size:11px;letter-spacing:.3px;font-weight:700;margin-top:5px;white-space:nowrap; }}
   .price {{ font-size:30px;font-weight:750;letter-spacing:-.9px;line-height:1;white-space:nowrap; }}
   .dollar {{ font-size:18px;vertical-align:4px;margin-right:2px; }}
-  .change-row {{ align-items:center;min-height:52px; }}
-  .delta {{ font-size:52px;line-height:1;letter-spacing:-1.9px;font-weight:850;font-variant-numeric:tabular-nums;white-space:nowrap; }}
-  .status {{ text-align:right;font-size:10px;font-weight:800;line-height:1.25;max-width:85px;letter-spacing:.1px; }}
-  .card-footer {{ border-top:1px solid #111;padding-top:7px;font-size:11px;white-space:nowrap;font-weight:500;gap:3px; }}
+  .change-row {{ align-items:center;min-height:64px; }}
+  .delta {{ font-size:57px;line-height:1;letter-spacing:-1.9px;font-weight:850;font-variant-numeric:tabular-nums;white-space:nowrap; }}
+  .status {{ text-align:right;font-size:13px;font-weight:800;line-height:1.12;max-width:125px;letter-spacing:.1px; }}
+  .card-footer {{ border-top:1px solid #111;padding-top:8px;font-size:13px;white-space:nowrap;font-weight:500;gap:5px;font-variant-numeric:tabular-nums; }}
   .card-footer strong {{ font-weight:800; }}
-  footer {{ border-top:1px solid #111;padding-top:7px;font-weight:700;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.2px; }}
   .demo {{ position:absolute;right:20px;top:56px;background:#fff;border:1px solid #111;font-size:11px;font-weight:800;padding:2px 6px;transform:rotate(-2deg); }}
 </style></head><body><main>
 <header><h1>MARKET / ALL-TIME HIGHS</h1><div class="head-meta">PRICE vs PRIOR CLOSING ATH · USD<br>{label}: {stamp}</div></header>
 <section class="grid">{''.join(pieces)}</section>
-<footer><span>PRICE ATH · SPLIT-ADJUSTED · NO DIVIDENDS</span><span>{source}</span></footer>
 {demo_label}</main></body></html>'''
 
 

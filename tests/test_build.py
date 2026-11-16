@@ -1,7 +1,7 @@
 import unittest
 from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
-from build import compute_card, market_window, demo_cards, render
+from build import compute_card, market_window, demo_cards, render, SYMBOLS
 
 ET = ZoneInfo('America/New_York')
 
@@ -38,8 +38,14 @@ class Tests(unittest.TestCase):
     def test_demo_marks_fictional_data(self):
         page = render(demo_cards(), demo=True)
         self.assertIn('DEMO · SAMPLE DATA', page)
-        self.assertIn('BREAKOUT', page)
+        self.assertIn('ABOVE PRIOR<br>CLOSING HIGH', page)
         self.assertIn('800px;height:480px', page)
+        self.assertEqual([sym for sym, _ in SYMBOLS], ['VOO', 'QQQ', 'SMH', 'QLD'])
+        self.assertLess(page.index('>SMH</div>'), page.index('>QLD</div>'))
+        self.assertNotIn('class="asset"', page)
+        self.assertNotIn('<footer>', page)
+        self.assertIn('class="card-header"', page)
+        self.assertIn('font-size:13px', page)
 
 if __name__ == '__main__':
     unittest.main()
