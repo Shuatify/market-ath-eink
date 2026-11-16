@@ -1,0 +1,50 @@
+{
+  "demo": true,
+  "generated_at_et": "2026-11-15T23:38:31.830560-05:00",
+  "cards": [
+    {
+      "ticker": "VOO",
+      "price": 585.6,
+      "price_time": "2026-11-13T14:15:00-05:00",
+      "quote_type": "5M BAR",
+      "prior_closing_ath": 610,
+      "prior_ath_date": "2026-09-25",
+      "change_pct": -3.9999999999999925,
+      "days_since_prior_ath": 49,
+      "breakout": false
+    },
+    {
+      "ticker": "QQQ",
+      "price": 492.0,
+      "price_time": "2026-11-13T14:15:00-05:00",
+      "quote_type": "5M BAR",
+      "prior_closing_ath": 600,
+      "prior_ath_date": "2026-10-09",
+      "change_pct": -18.000000000000004,
+      "days_since_prior_ath": 35,
+      "breakout": false
+    },
+    {
+      "ticker": "QLD",
+      "price": 108.0,
+      "price_time": "2026-11-13T14:15:00-05:00",
+      "quote_type": "5M BAR",
+      "prior_closing_ath": 120,
+      "prior_ath_date": "2026-10-23",
+      "change_pct": -9.999999999999998,
+      "days_since_prior_ath": 21,
+      "breakout": false
+    },
+    {
+      "ticker": "SMH",
+      "price": 367.5,
+      "price_time": "2026-11-13T14:15:00-05:00",
+      "quote_type": "5M BAR",
+      "prior_closing_ath": 350,
+      "prior_ath_date": "2026-08-22",
+      "change_pct": 5.000000000000004,
+      "days_since_prior_ath": 83,
+      "breakout": true
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=800,initial-scale=1,minimum-scale=1,maximum-scale=1"><meta http-equiv="Cache-Control" content="no-cache"><title>Market / All-Time Highs</title>
+<style>
+  * { box-sizing:border-box; }
+  html,body { padding:0;margin:0;width:800px;height:480px;background:#fff;color:#111;overflow:hidden; }
+  body { font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased; }
+  main { width:800px;height:480px;padding:20px 22px 12px;display:grid;grid-template-rows:53px 1fr 27px;gap:12px;position:relative; }
+  header { display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #111;padding-bottom:8px; }
+  h1 { font-size:27px;line-height:1;margin:0;font-weight:800;letter-spacing:.35px; }
+  .head-meta { text-align:right;font-size:12px;font-weight:700;letter-spacing:.6px;line-height:1.4; }
+  .grid { display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:12px;min-height:0; }
+  .card { border:2px solid #111;padding:11px 12px 10px;display:flex;flex-direction:column;justify-content:space-between;min-height:0; }
+  .card-header,.change-row,.card-footer { display:flex;align-items:center;justify-content:space-between;gap:6px; }
+  .ticker { font-size:27px;letter-spacing:.7px;font-weight:800;line-height:1; }
+  .asset { font-size:11px;letter-spacing:.3px;font-weight:700;margin-top:5px;white-space:nowrap; }
+  .price { font-size:30px;font-weight:750;letter-spacing:-.9px;line-height:1;white-space:nowrap; }
+  .dollar { font-size:18px;vertical-align:4px;margin-right:2px; }
+  .change-row { align-items:center;min-height:52px; }
+  .delta { font-size:52px;line-height:1;letter-spacing:-1.9px;font-weight:850;font-variant-numeric:tabular-nums;white-space:nowrap; }
+  .status { text-align:right;font-size:10px;font-weight:800;line-height:1.25;max-width:85px;letter-spacing:.1px; }
+  .card-footer { border-top:1px solid #111;padding-top:7px;font-size:11px;white-space:nowrap;font-weight:500;gap:3px; }
+  .card-footer strong { font-weight:800; }
+  footer { border-top:1px solid #111;padding-top:7px;font-weight:700;display:flex;justify-content:space-between;font-size:10px;letter-spacing:.2px; }
+  .demo { position:absolute;right:20px;top:56px;background:#fff;border:1px solid #111;font-size:11px;font-weight:800;padding:2px 6px;transform:rotate(-2deg); }
+</style></head><body><main>
+<header><h1>MARKET / ALL-TIME HIGHS</h1><div class="head-meta">PRICE vs PRIOR CLOSING ATH · USD<br>AS OF: 2026-11-13 14:15 ET</div></header>
+<section class="grid"><article class="card">
+          <div class="card-header"><div><div class="ticker">VOO</div>
+          <div class="asset">S&amp;P 500 ETF</div></div>
+          <div class="price"><span class="dollar">$</span>585.60</div></div>
+          <div class="change-row"><strong class="delta">-4.0%</strong><div class="status">BELOW CLOSING HIGH</div></div>
+          <div class="card-footer"><span>ATH <strong>$610.00</strong> · 2026-09-25</span>
+          <span><strong>49d SINCE ATH</strong></span></div>
+        </article><article class="card">
+          <div class="card-header"><div><div class="ticker">QQQ</div>
+          <div class="asset">NASDAQ-100 ETF</div></div>
+          <div class="price"><span class="dollar">$</span>492.00</div></div>
+          <div class="change-row"><strong class="delta">-18.0%</strong><div class="status">BELOW CLOSING HIGH</div></div>
+          <div class="card-footer"><span>ATH <strong>$600.00</strong> · 2026-10-09</span>
+          <span><strong>35d SINCE ATH</strong></span></div>
+        </article><article class="card">
+          <div class="card-header"><div><div class="ticker">QLD</div>
+          <div class="asset">2x NASDAQ-100</div></div>
+          <div class="price"><span class="dollar">$</span>108.00</div></div>
+          <div class="change-row"><strong class="delta">-10.0%</strong><div class="status">BELOW CLOSING HIGH</div></div>
+          <div class="card-footer"><span>ATH <strong>$120.00</strong> · 2026-10-23</span>
+          <span><strong>21d SINCE ATH</strong></span></div>
+        </article><article class="card">
+          <div class="card-header"><div><div class="ticker">SMH</div>
+          <div class="asset">SEMICONDUCTORS</div></div>
+          <div class="price"><span class="dollar">$</span>367.50</div></div>
+          <div class="change-row"><strong class="delta">+5.0%</strong><div class="status">ABOVE PRIOR<br>CLOSING HIGH</div></div>
+          <div class="card-footer"><span>ATH <strong>$350.00</strong> · 2026-08-22</span>
+          <span><strong>BREAKOUT · 83d SINCE PRIOR ATH</strong></span></div>
+        </article></section>
+<footer><span>PRICE ATH · SPLIT-ADJUSTED · NO DIVIDENDS</span><span>YAHOO · 5M BARS · DELAYED / BEST EFFORT</span></footer>
+<div class="demo">DEMO · SAMPLE DATA</div></main></body></html>
