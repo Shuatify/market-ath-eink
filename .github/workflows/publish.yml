@@ -34,14 +34,28 @@ jobs:
       - name: Check actual NYSE market window
         id: gate
         shell: bash
+        env:
+          FORCE_PUBLISH: ${{ inputs.force }}
         run: |
-          if [[ "${{ github.event_name }}" == "push" || "${{ inputs.force }}" == "true" ]] || \
-             python -c "from datetime import datetime; from zoneinfo import ZoneInfo; from build import market_window; import sys; sys.exit(0 if market_window(datetime.now(ZoneInfo('America/New_York'))) else 1)"; then
-            echo "should_publish=true" >> "$GITHUB_OUTPUT"
-	  else
-            echo "should_publish=false" >> "$GITHUB_OUTPUT"
-            echo "NYSE is closed; no data fetch or deployment."
+          if [[ "$GITHUB_EVENT_NAME" == "push" || "$FORCE_PUBLISH" == "true" ]]; then
+            should_publish=true
+          elif python - <<'PYCHECK'
+          import sys
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+          from build import market_window
+
+          now = datetime.now(ZoneInfo("America/New_York"))
+          sys.exit(0 if market_window(now) else 1)
+          PYCHECK
+          then
+            should_publish=true
+          else
+            should_publish=false
+            echo "NYSE is closed; skipping deployment."
           fi
+
+          echo "should_publish=$should_publish" >> "$GITHUB_OUTPUT"
       - name: Generate live dashboard
         if: steps.gate.outputs.should_publish == 'true'
         run: python build.py
