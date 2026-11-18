@@ -4,15 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-  schedule:
-    # NYSE weekdays; timezone automatically handles EST/EDT transitions.
-    # Scheduled runs can be delayed/skipped by GitHub.
-    - cron: '36,46,56 9 * * 1-5'
-      timezone: America/New_York
-    - cron: '6,16,26,36,46,56 10-15 * * 1-5'
-      timezone: America/New_York
-    - cron: '6,16,26 16 * * 1-5'
-      timezone: America/New_York
+    inputs:
+      force:
+        description: 'Publish even when NYSE is closed'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -39,9 +35,10 @@ jobs:
         id: gate
         shell: bash
         run: |
-          if [[ "${{ github.event_name }}" != "schedule" ]] || python -c "from datetime import datetime; from zoneinfo import ZoneInfo; from build import market_window; import sys; sys.exit(0 if market_window(datetime.now(ZoneInfo('America/New_York'))) else 1)"; then
+          if [[ "${{ github.event_name }}" == "push" || "${{ inputs.force }}" == "true" ]] || \
+             python -c "from datetime import datetime; from zoneinfo import ZoneInfo; from build import market_window; import sys; sys.exit(0 if market_window(datetime.now(ZoneInfo('America/New_York'))) else 1)"; then
             echo "should_publish=true" >> "$GITHUB_OUTPUT"
-          else
+	  else
             echo "should_publish=false" >> "$GITHUB_OUTPUT"
             echo "NYSE is closed; no data fetch or deployment."
           fi
